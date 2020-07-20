@@ -73,5 +73,19 @@ const getThingsTodos = function (todo) {
     return todos.completed === false;
   });
 };
+//console.log(getThingsTodos(todo));
 
-console.log(getThingsTodos(todo));
+const sortTodo = function (todo) {
+  todo.sort(function (a, b) {
+    if (!a.completed && b.completed) {
+      return -1;
+    } else if (!b.completed && a.completed) {
+      return 1;
+    } else {
+      return 0;
+    }
+  });
+};
+
+sortTodo(todo);
+console.log(todo);
