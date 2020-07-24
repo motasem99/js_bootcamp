@@ -8,11 +8,27 @@
   <body>
     <h1>Notes App</h1>
     <h2>Take notes and never forget</h2>
-    <input id="search-text" type="text" placeholder="filter todos" />
-    <p class="note">This application was created by mutasem kwaik</p>
-    <p class="note">some notes text</p>
+    <label for="">
+      Search: <input id="search-text" type="text" placeholder="filter todos" />
+    </label>
+    <!-- <p class="note">This application was created by mutasem kwaik</p>
+    <p class="note">some notes text</p> -->
+    <select id="filter-by">
+      <option value="byEdited">sort by last edited</option>
+      <option value="byCreated">sort by recently created</option>
+      <option value="alphabetical">sort alphabetically</option>
+    </select>
+    <div id="notes"></div>
+
     <button id="createNote">create note</button>
-    <button id="removeAll">remove all notes</button>
+    <!-- <button id="removeAll">remove all notes</button> -->
+    <!-- <form id="name-form">
+      <input type="text" placeholder="first name" name="firstName" />
+      <button>submit</button>
+    </form> -->
+    <!-- <label for="">
+      <input type="checkbox" name="" id="for-fun" /> check me for fun
+    </label> -->
     <script src="notes-app.js"></script>
   </body>
 </html>
