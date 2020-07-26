@@ -1,50 +1,29 @@
-let notes = [
-  // {
-  //   title: 'my next trip',
-  //   body: 'i would like to go to spain',
-  // },
-  // {
-  //   title: 'habits to work on',
-  //   body: 'exercise, eating a bit better',
-  // },
-  // {
-  //   title: 'office modification',
-  //   body: 'get a new seat',
-  // },
-];
+const notes = getSavedNotes();
+// [
+// {
+//   title: 'my next trip',
+//   body: 'i would like to go to spain',
+// },
+// {
+//   title: 'habits to work on',
+//   body: 'exercise, eating a bit better',
+// },
+// {
+//   title: 'office modification',
+//   body: 'get a new seat',
+// },
+//];
 
 const filters = {
   searchText: '',
 };
 
-// check for existing saved data
+// // check for existing saved data
+// const notesJSON = localStorage.getItem('notes');
+// if (notesJSON !== null) {
+//   notes = JSON.parse(notesJSON);
+// }
 
-const notesJSON = localStorage.getItem('notes');
-
-if (notesJSON !== null) {
-  notes = JSON.parse(notesJSON);
-}
-
-const renderNotes = function (notes, filters) {
-  const filteredNotes = notes.filter(function (note) {
-    return note.title.toLowerCase().includes(filters.searchText.toLowerCase());
-  });
-
-  document.querySelector('#notes').innerHTML = '';
-
-  filteredNotes.forEach(function (note) {
-    const noteEl = document.createElement('p');
-
-    if (note.title.length > 0) {
-      noteEl.textContent = note.title;
-    } else {
-      noteEl.textContent = 'unnamed note';
-    }
-
-    noteEl.textContent = note.title;
-    document.querySelector('#notes').appendChild(noteEl);
-  });
-};
 renderNotes(notes, filters);
 
 document.querySelector('#createNote').addEventListener('click', function (e) {
@@ -53,8 +32,7 @@ document.querySelector('#createNote').addEventListener('click', function (e) {
     title: '',
     body: '',
   });
-
-  localStorage.setItem('notes', JSON.stringify(notes));
+  savedNotes(notes);
   renderNotes(notes, filters);
   // const newParagraph = document.createElement('p');
   // newParagraph.textContent = 'this is new paragraph from js';
