@@ -28,13 +28,15 @@ renderNotes(notes, filters);
 
 document.querySelector('#createNote').addEventListener('click', function (e) {
   // e.target.textContent = 'the button was clicked';
+  const id = uuidv4();
   notes.push({
-    id: uuidv4(),
+    id: id,
     title: '',
     body: '',
   });
   savedNotes(notes);
-  renderNotes(notes, filters);
+  // renderNotes(notes, filters);
+  location.assign(`/edit.html#${id}`);
   // const newParagraph = document.createElement('p');
   // newParagraph.textContent = 'this is new paragraph from js';
   // document.querySelector('body').appendChild(newParagraph);

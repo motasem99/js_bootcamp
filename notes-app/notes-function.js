@@ -29,7 +29,7 @@ const removeNote = function (id) {
 
 const generateNoteDOM = function (note) {
   const noteEl = document.createElement('div');
-  const textEl = document.createElement('span');
+  const textEl = document.createElement('a');
   const button = document.createElement('button');
 
   // setup the remove note button
@@ -48,6 +48,8 @@ const generateNoteDOM = function (note) {
   } else {
     textEl.textContent = 'unnamed note';
   }
+
+  textEl.setAttribute('href', `/edit.html#${note.id}`);
 
   noteEl.appendChild(textEl);
   return noteEl;
