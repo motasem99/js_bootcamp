@@ -1,4 +1,4 @@
-const notes = getSavedNotes();
+let notes = getSavedNotes();
 // [
 // {
 //   title: 'my next trip',
@@ -36,7 +36,7 @@ document.querySelector('#createNote').addEventListener('click', function (e) {
   });
   savedNotes(notes);
   // renderNotes(notes, filters);
-  location.assign(`/edit.html#${id}`);
+  location.assign(`edit.html#${id}`);
   // const newParagraph = document.createElement('p');
   // newParagraph.textContent = 'this is new paragraph from js';
   // document.querySelector('body').appendChild(newParagraph);
@@ -89,3 +89,39 @@ document.querySelector('#search-text').addEventListener('input', function (e) {
 document.querySelector('#filter-by').addEventListener('change', function (e) {
   console.log(e.target.value);
 });
+
+window.addEventListener('storage', function (e) {
+  if (e.key === 'notes') {
+    notes = JSON.parse(e.newValue);
+    renderNotes(notes, filters);
+  }
+});
+
+// unix epoch - january 1st 1970 00:00:00
+
+const now = new Date();
+const timestamp = now.getTime();
+
+const myDate = new Date(timestamp);
+console.log(myDate.getFullYear());
+
+//console.log(now.getTime());
+
+// console.log(`Year: ${now.getFullYear()}`);
+// console.log(`Month: ${now.getMonth()}`);
+// console.log(`day of month: ${now.getDate()}`);
+// console.log(`hour: ${now.getHours()}`);
+// console.log(`minute: ${now.getMinutes()}`);
+// console.log(`second: ${now.getSeconds()}`);
+
+const dateOne = new Date('march 21 2019 12:00:00');
+const dateTwo = new Date();
+
+const dateOneTimestamp = dateOne.getTime();
+const dateTwoTimestamp = dateTwo.getTime();
+
+if (dateOneTimestamp < dateTwoTimestamp) {
+  console.log(dateOne.toString());
+} else if (dateTwoTimestamp < dateOneTimestamp) {
+  console.log(dateTwo.toString());
+}
