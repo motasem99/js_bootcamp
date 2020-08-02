@@ -16,6 +16,7 @@ let notes = getSavedNotes();
 
 const filters = {
   searchText: '',
+  sortBy: 'byEdited',
 };
 
 // // check for existing saved data
@@ -29,10 +30,13 @@ renderNotes(notes, filters);
 document.querySelector('#createNote').addEventListener('click', function (e) {
   // e.target.textContent = 'the button was clicked';
   const id = uuidv4();
+  const timeStamp = moment().valueOf();
   notes.push({
     id: id,
     title: '',
     body: '',
+    createdAt: timeStamp,
+    updatedAt: timeStamp,
   });
   savedNotes(notes);
   // renderNotes(notes, filters);
@@ -87,7 +91,8 @@ document.querySelector('#search-text').addEventListener('input', function (e) {
 // });
 
 document.querySelector('#filter-by').addEventListener('change', function (e) {
-  console.log(e.target.value);
+  filters.sortBy = e.target.value;
+  renderNotes(notes, filters);
 });
 
 window.addEventListener('storage', function (e) {
@@ -97,31 +102,19 @@ window.addEventListener('storage', function (e) {
   }
 });
 
-// unix epoch - january 1st 1970 00:00:00
+// const now = moment();
+// now.add(1, 'week').subtract(20, 'days');
+// console.log(now.format('MMMM Do, YYYY'));
+// console.log(now.fromNow());
+// const nowTimeStamp = now.valueOf();
+// console.log(moment(nowTimeStamp).toString());
 
-const now = new Date();
-const timestamp = now.getTime();
+// const birthday = moment();
+// birthday.year(1999).month(3).day(27);
+// console.log(birthday.format('MMM D ,YYYY'));
 
-const myDate = new Date(timestamp);
-console.log(myDate.getFullYear());
+/////////////////////////////////
 
-//console.log(now.getTime());
-
-// console.log(`Year: ${now.getFullYear()}`);
-// console.log(`Month: ${now.getMonth()}`);
-// console.log(`day of month: ${now.getDate()}`);
-// console.log(`hour: ${now.getHours()}`);
-// console.log(`minute: ${now.getMinutes()}`);
-// console.log(`second: ${now.getSeconds()}`);
-
-const dateOne = new Date('march 21 2019 12:00:00');
-const dateTwo = new Date();
-
-const dateOneTimestamp = dateOne.getTime();
-const dateTwoTimestamp = dateTwo.getTime();
-
-if (dateOneTimestamp < dateTwoTimestamp) {
-  console.log(dateOne.toString());
-} else if (dateTwoTimestamp < dateOneTimestamp) {
-  console.log(dateTwo.toString());
-}
+// 1. add createdAt and updatedAt to the new notes (store timestamp)
+// 2. update updatedAt when someOne edits a title or body
+// 3. delete all old notes before testing
