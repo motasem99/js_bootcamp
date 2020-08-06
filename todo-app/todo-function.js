@@ -1,11 +1,12 @@
-// fetch existing todos from localStorage
-// getSavedTodos
+'use strict';
 
-const getSavedTodos = function () {
+// fetch existing todos from localStorage
+const getSavedTodos = () => {
   const todosJSON = localStorage.getItem('todos');
-  if (todosJSON !== null) {
-    return JSON.parse(todosJSON);
-  } else {
+
+  try {
+    return todosJSON ? JSON.parse(todosJSON) : [];
+  } catch (e) {
     return [];
   }
 };
@@ -13,14 +14,14 @@ const getSavedTodos = function () {
 // save todos to localStorage
 // savetodos
 
-const saveTodos = function (todos) {
+const saveTodos = (todos) => {
   localStorage.setItem('todos', JSON.stringify(todos));
 };
 
-const removeTodo = function (id) {
-  const todoIndex = todos.findIndex(function (todo) {
-    return todo.id === id;
-  });
+// remove todo by id
+
+const removeTodo = (id) => {
+  const todoIndex = todos.findIndex((todo) => todo.id === id);
 
   if (todoIndex > -1) {
     todos.splice(todoIndex, 1);
@@ -28,11 +29,10 @@ const removeTodo = function (id) {
 };
 
 // toggle the completed value for a given todo
-const toggleTodo = function (id) {
-  const todo = todos.find(function (todo) {
-    return todo.id === id;
-  });
-  if (todo !== undefined) {
+const toggleTodo = (id) => {
+  const todo = todos.find((todo) => todo.id === id);
+
+  if (todo) {
     todo.completed = !todo.completed;
   }
 };
@@ -40,8 +40,8 @@ const toggleTodo = function (id) {
 // render application todos based on filter
 // renderTodos
 
-const renderTodos = function (todos, filters) {
-  const filteredTodos = todos.filter(function (todo) {
+const renderTodos = (todos, filters) => {
+  const filteredTodos = todos.filter((todo) => {
     const searchTextMatch = todo.text
       .toLowerCase()
       .includes(filters.searchText.toLowerCase());
@@ -50,33 +50,22 @@ const renderTodos = function (todos, filters) {
     return searchTextMatch && hideCompletedMatch;
   });
 
-  const inCompleteTodos = filteredTodos.filter(function (todo) {
-    return !todo.completed;
-  });
+  const inCompleteTodos = filteredTodos.filter((todo) => !todo.completed);
 
   document.querySelector('#todos').innerHTML = '';
   document
     .querySelector('#todos')
     .appendChild(generateSummaryDOM(inCompleteTodos));
 
-  filteredTodos.forEach(function (todo) {
+  filteredTodos.forEach((todo) => {
     document.querySelector('#todos').appendChild(generateTodoDOM(todo));
   });
 };
 
-// 1. setup a root div
-// 2. setup and append a checkbox (set type attribute)
-// some Node.setAttribute('type','checkbox')
-// 3. setup and append a span (set text)
-// 4. setup and append a button (set text)
-
 // get the DOM elements for an individual note
 // generateTodoDOM
 
-const generateTodoDOM = function (todo) {
-  // const p = document.createElement('p');
-  // p.textContent = todo.text;
-  // return p;
+const generateTodoDOM = (todo) => {
   const todoEl = document.createElement('div');
   const checkbox = document.createElement('input');
   const todoText = document.createElement('span');
@@ -86,7 +75,7 @@ const generateTodoDOM = function (todo) {
   checkbox.setAttribute('type', 'checkbox');
   checkbox.checked = todo.completed;
   todoEl.appendChild(checkbox);
-  checkbox.addEventListener('change', function () {
+  checkbox.addEventListener('change', () => {
     toggleTodo(todo.id);
     saveTodos(todos);
     renderTodos(todos, filters);
@@ -99,22 +88,19 @@ const generateTodoDOM = function (todo) {
   //    setup a remove button
   removeButton.textContent = 'x';
   todoEl.appendChild(removeButton);
-
-  removeButton.addEventListener('click', function () {
+  removeButton.addEventListener('click', () => {
     removeTodo(todo.id);
     saveTodos(todos);
     renderTodos(todos, filters);
   });
-
   return todoEl;
 };
 
 // get the DOM element for list summary
 // generateSummaryDOM
 
-const generateSummaryDOM = function (inCompleteTodos) {
+const generateSummaryDOM = (inCompleteTodos) => {
   const summary = document.createElement('h2');
   summary.textContent = `you have ${inCompleteTodos.length} todo left`;
-
   return summary;
 };
