@@ -3,28 +3,46 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>todo App</title>
+    <link rel="icon" href="/todo-app/images/favicon.png?v=1" />
+    <link rel="stylesheet" href="/todo-app/styles/style.css" />
+    <title>To-do App</title>
   </head>
   <body>
-    <h1>todos</h1>
-    <!-- <input id="add-todo-text" type="text" placeholder="type todo" />
-    <button id="add-todo">add todo</button> -->
-    <input id="search-text" type="text" placeholder="filter todos" />
-    <label>
-      <input type="checkbox" id="hide-completed" /> hide completed
-    </label>
-    <div id="todos"></div>
-    <form id="new-todo">
-      <input type="text" name="text" placeholder="something to do" id="" />
-      <button id="">add todo</button>
-    </form>
-    <!-- <p>clean the kitchen</p>
-    <p>book flight</p>
-    <p>research museums</p>
-    <p>walk the dog</p>
-    <p>finish this course</p> -->
-    <script src="http://wzrd.in/standalone/uuid%2Fv4@latest"></script>
-    <script src="todo-function.js"></script>
-    <script src="todo.js"></script>
+    <div class="header">
+      <div class="container">
+        <h1 class="header__title">To-do App</h1>
+        <h2 class="header__subtitle">What do you need to do?</h2>
+      </div>
+    </div>
+
+    <div class="actions">
+      <div class="actions__container">
+        <input
+          id="search-text"
+          class="input"
+          type="text"
+          placeholder="filter todos"
+        />
+        <label class="checkbox">
+          <input type="checkbox" id="hide-completed" /> hide completed
+        </label>
+      </div>
+    </div>
+    <div class="container">
+      <div id="todos"></div>
+      <form id="new-todo">
+        <input
+          type="text"
+          class="input"
+          name="text"
+          placeholder="something to do"
+          id=""
+        />
+        <button class="button">add todo</button>
+      </form>
+    </div>
+    <script src="/todo-app/scripts/uuidv4.js"></script>
+    <script src="/todo-app/scripts/todo-function.js"></script>
+    <script src="/todo-app/scripts/todo-app.js"></script>
   </body>
 </html>
